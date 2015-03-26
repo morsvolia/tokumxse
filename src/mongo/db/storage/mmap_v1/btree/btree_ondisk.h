@@ -180,7 +180,7 @@ namespace mongo {
 
     // BtreeBucketV0 is part of the on-disk format, so it should never be changed
     BOOST_STATIC_ASSERT(
-        sizeof(BtreeBucketV0) - sizeof(reinterpret_cast<BtreeBucketV0*>(NULL)->data) 
+        sizeof(BtreeBucketV0) - sizeof(reinterpret_cast<BtreeBucketV0*>(0)->data) 
                 == BtreeBucketV0::HeaderSize);
 
     /**
@@ -314,7 +314,7 @@ namespace mongo {
 
     // BtreeBucketV1 is part of the on-disk format, so it should never be changed
     BOOST_STATIC_ASSERT(
-        sizeof(BtreeBucketV1) - sizeof(reinterpret_cast<BtreeBucketV1*>(NULL)->data) 
+        sizeof(BtreeBucketV1) - sizeof(reinterpret_cast<BtreeBucketV1*>(0)->data) 
                 == BtreeBucketV1::HeaderSize);
 
     enum Flags {
