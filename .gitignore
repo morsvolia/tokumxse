@@ -5,6 +5,7 @@
 /perf.data
 /massif.out.*
 /smoke-last.json
+/src/third_party/tokuft
 
 *~
 *.swp
