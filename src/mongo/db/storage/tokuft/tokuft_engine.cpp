@@ -131,13 +131,14 @@ namespace mongo {
         }
 
 
-        int iterateTransactionsCallback(uint64_t txnid, uint64_t clientId,
+        int iterateTransactionsCallback(DB_TXN *dbtxn,
                                         iterate_row_locks_callback iterateLocks,
                                         void *locksExtra, void *extra) {
             try {
                 // We ignore clientId because txnid is sufficient for finding
                 // the associated operation in db.currentOp()
                 BSONObjBuilder status;
+                uint64_t txnid = dbtxn->id64(dbtxn);
                 status.appendNumber("txnid", txnid);
                 BSONArrayBuilder locks(status.subarrayStart("rowLocks"));
                 {
@@ -322,12 +323,12 @@ namespace mongo {
         Status s = diskFormatVersion.initialize(&opCtx);
         if (!s.isOK()) {
             severe() << "TokuFT: While checking disk format version, got error " << s;
-            fassertFailed(28612);
+            fassertFailed(28632);
         }
         s = diskFormatVersion.upgradeToCurrent(&opCtx);
         if (!s.isOK()) {
             severe() << "TokuFT: While upgrading disk format version, got error " << s;
-            fassertFailed(28615);
+            fassertFailed(28633);
         }
 
         wuow.commit();
